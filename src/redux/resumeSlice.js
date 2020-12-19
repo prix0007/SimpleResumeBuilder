@@ -14,9 +14,9 @@ export const resumeSlice = createSlice({
     references: [],
     education: [],
     contact: {
-        email: '',
+        email: 'princanurag07@gmail.com',
         secondaryEmail: '',
-        phoneno: ''
+        phoneno: '9151514101'
     },
     socialMedia: {
         linkedIn: '',

@@ -11,6 +11,7 @@ import AddIcon from "@material-ui/icons/AddCircleOutline";
 import styles from './Contact.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {getResume, setContactState} from "../redux/resumeSlice";
+import {isString, isValidString} from "../utils/verifications";
 
 const getLabel = (field) => {
     switch (field){
@@ -29,9 +30,9 @@ const Contact = () => {
 
 
     const [contact, setContact] = React.useState({
-        email: '',
+        email: 'princanurag07@gmail.com',
         secondaryEmail: '',
-        phoneno: ''
+        phoneno: '9151514101',
     });
 
     React.useEffect(() => {

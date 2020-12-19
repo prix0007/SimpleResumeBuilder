@@ -8,12 +8,20 @@ import NextIcon from '@material-ui/icons/ChevronRightRounded';
 
 import { Link } from 'react-router-dom';
 
+import {
+    isString,
+    isValidNumber,
+    isValidString
+} from "../utils/verifications";
+
 import Skills from './Skills';
 import References from './References';
 import Education from './Education';
 import Experience from './Experience';
 import Contact from './Contact';
 import SocialLinks from './SocialLinks';
+
+import { useHistory } from 'react-router-dom';
 
 import styles from './Resume.module.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -29,18 +37,62 @@ const Resume = () => {
     const dispatch = useDispatch();
     const globalResume = useSelector(getResume);
 
+    const history = useHistory();
 
     const [resume, setResume] = React.useState({
         name: '',
         about: '',
-        location: ''
+        location: '',
+        errors: {
+            name: '',
+            about: '',
+            location: ''
+        }
     });
+
     const handleChange = (event) => {
         setResume({
             ...resume,
             [event.target.name]: event.target.value
         });
-    };    
+    };
+
+    const handleChecks = () => {
+        if(!isString(resume.name) || !isValidString(resume.name)){
+            setResume({
+                ...resume,
+                errors: {
+                    ...resume.errors,
+                    name: 'Please Enter a Valid name'
+                }
+            });
+            return
+        } else if(!isString(resume.about) || !isValidString(resume.about)){
+            setResume({
+                ...resume,
+                errors: {
+                    ...resume.errors,
+                    name: '',
+                    about: 'Please Enter Something About YourSelf'
+                }
+            });
+            return
+        } else if(!isString(resume.location) || !isValidString(resume.location)){
+            setResume({
+                ...resume,
+                errors: {
+                    ...resume.errors,
+                    about: '',
+                    location: 'Please Enter a Valid name'
+                }
+            });
+            return
+        }
+        else{
+            history.push('/final');
+        }
+
+    }
 
     return (
         <Grid container className={styles.resumeRoot}>
@@ -59,6 +111,8 @@ const Resume = () => {
                     onBlur={() => {
                         dispatch(setNameState(resume.name))
                     }}
+                    error={resume.errors.name}
+                    helperText={resume.errors.name}
                 />
                 <TextField
                     id="standard-multiline-static"
@@ -75,6 +129,8 @@ const Resume = () => {
                     onBlur={() => {
                         dispatch(setAboutState(resume.about))
                     }}
+                    error={resume.errors.about}
+                    helperText={resume.errors.about}
                 />
                 <TextField
                     id="standard-multiline-static"
@@ -89,6 +145,8 @@ const Resume = () => {
                     onBlur={() => {
                         dispatch(setLocationState(resume.location))
                     }}
+                    error={resume.errors.location}
+                    helperText={resume.errors.location}
                 />
                 <Skills />
                 <References />
@@ -96,11 +154,11 @@ const Resume = () => {
                 <Experience />
                 <Contact />
                 <SocialLinks />
-                <Link to={'/final'}>
-                    <Button variant={'contained'} color="primary" fullWidth style={{padding :'1rem'}}>
-                        Next <NextIcon />
-                    </Button>
-                </Link>
+
+                <Button variant={'contained'} color="primary" fullWidth style={{padding :'1rem'}} onClick={handleChecks}>
+                    Next <NextIcon />
+                </Button>
+
             </Grid>
             <Grid item sm={1} />
            
