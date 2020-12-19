@@ -9,48 +9,57 @@ import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/DeleteOutlineRounded';
 
 import styles from './References.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    setReferencesState,
+    getResume,
+} from "../redux/resumeSlice";
 
-const Skills = () => {
+const References = () => {
 
-    const [skills , setSkills] = React.useState([{
-        idx: 'skill-0',
-        name: 'Rohan Agarwal - rohan@cypehrock.com'
-    }]);
+    const dispatch = useDispatch();
+    const globalResume = useSelector(getResume);
+
+    const [references , setReferences] = React.useState([...globalResume.references]);
 
     const handleChange = (e, idx) => {
-        console.log(idx);
-        console.log(skills)
-        const newSkills = skills.map((skill, id) => {
+        const newReferences = references.map((reference, id) => {
             if(idx === id){
-                skill.name = e.target.value
+                reference = {
+                    ...reference,
+                    [e.target.name]: e.target.value
+                }
             } 
-            return skill;
+            return reference;
         });
-        setSkills([
-            ...newSkills
+        setReferences([
+            ...newReferences
         ])
-    }   
+    }
 
     const handleAdd = () => {
-        const noOfSkills = skills.length
-        const newSkill = {
-            idx: `skill-${noOfSkills}`,
-            name: ''
+        const newReference = {
+            name: '',
+            contact: ''
         }
-        setSkills([
-            ...skills,
-            newSkill
+        setReferences([
+            ...references,
+            newReference
         ])
     }
 
     const handleDelete = (idx) => {
-        console.log(idx)
-        const newSkills = skills.filter((skill, id) => idx !== id)
-        console.log(newSkills);
-        setSkills([
-            ...newSkills
+
+        const newReferences = references.filter((reference, id) => idx !== id)
+
+        setReferences([
+            ...newReferences
         ]);
     }
+
+    React.useEffect(() => {
+        dispatch(setReferencesState(references))
+    }, [dispatch, references])
 
     return (
         <Paper className={styles.referencesRoot}>
@@ -66,17 +75,27 @@ const Skills = () => {
                 <Grid item sm={1} />
                 <Grid item sm={10} style={{display: 'flex', flexWrap: 'wrap'}}>
                     {
-                        skills.map((skill, idx) => {
+                        references.map((reference, idx) => {
                             return (
                                 <Paper key={`skill-${idx}`} className={styles.referencesWrapper}>
-                                    <TextField 
-                                        name={`skill-${idx}`}
-                                        value={skill.name}
-                                        placeholder="Enter Some Skill Here.."
-                                        onChange={(e) => handleChange(e, idx)}
-                                        className={styles.textField}
-                                        fullWidth
-                                    />
+                                    <Grid container>
+                                        <TextField
+                                            name={'name'}
+                                            value={reference.name}
+                                            placeholder="Enter Name of your Reference."
+                                            onChange={(e) => handleChange(e, idx)}
+                                            className={styles.textField}
+                                            fullWidth
+                                        />
+                                        <TextField
+                                            name={'contact'}
+                                            value={reference.contact}
+                                            placeholder="Enter Contact For the reference ."
+                                            onChange={(e) => handleChange(e, idx)}
+                                            className={styles.textField}
+                                            fullWidth
+                                        />
+                                    </Grid>
                                     <IconButton onClick={(e) => handleDelete(idx)}>
                                         <DeleteIcon color="error"/>
                                     </IconButton>
@@ -92,4 +111,4 @@ const Skills = () => {
     )
 }
 
-export default Skills
+export default References;

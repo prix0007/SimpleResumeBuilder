@@ -1,0 +1,8 @@
+.fieldWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.textField {
+    margin: 0.5rem !important
+}

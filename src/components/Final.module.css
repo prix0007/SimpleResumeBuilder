@@ -1,0 +1,15 @@
+.wrapper {
+    margin: 1rem 0rem;
+    padding: 1rem;
+    background: rgba(0,0,255,0.05) !important;
+}
+
+.item {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.download {
+    margin: 2rem 0rem;
+}

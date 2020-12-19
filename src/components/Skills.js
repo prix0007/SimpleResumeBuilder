@@ -9,20 +9,35 @@ import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/DeleteOutlineRounded';
 
 import styles from './Skills.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+
+import {
+    setSkillsState,
+    getResume,
+} from "../redux/resumeSlice";
+
+
 
 const Skills = () => {
 
-    const [skills , setSkills] = React.useState([{
-        idx: 'skill-0',
-        name: 'Communication'
-    }]);
+    const dispatch = useDispatch();
+    const globalResume = useSelector(getResume);
+
+    const [skills , setSkills] = React.useState(globalResume.skills);
+
+    React.useEffect(() => {
+        dispatch(setSkillsState(skills))
+    }, [dispatch, skills])
 
     const handleChange = (e, idx) => {
-        console.log(idx);
-        console.log(skills)
+
+        console.log(skills);
+
         const newSkills = skills.map((skill, id) => {
             if(idx === id){
-                skill.name = e.target.value
+                skill = {
+                    [e.target.name]: e.target.value
+                }
             } 
             return skill;
         });
@@ -44,16 +59,18 @@ const Skills = () => {
     }
 
     const handleDelete = (idx) => {
-        console.log(idx)
+
         const newSkills = skills.filter((skill, id) => idx !== id)
-        console.log(newSkills);
+
         setSkills([
             ...newSkills
         ]);
     }
 
     return (
-        <Paper className={styles.skillsRoot}>
+        <Paper className={styles.skillsRoot} onBlur={() => {
+            console.log("Skills is Out of Focus");
+        }}>
             <Grid container className={styles.skillsHeader}>
                 <Typography variant="h6" style={{marginLeft: '1rem'}}>
                     Skills
@@ -70,9 +87,9 @@ const Skills = () => {
                             return (
                                 <Paper key={`skill-${idx}`} className={styles.skillWrapper}>
                                     <TextField 
-                                        name={`skill-${idx}`}
+                                        name={'name'}
                                         value={skill.name}
-                                        placeholder="Enter Some Skill Here.."
+                                        placeholder="Enter Your Skill Here.."
                                         onChange={(e) => handleChange(e, idx)}
                                         className={styles.textField}
                                         fullWidth

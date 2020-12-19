@@ -1,26 +1,25 @@
 
-.referencesRoot {
+.experienceRoot {
     background: rgba(0,0,255, 0.04);
     padding: 0.5rem;
-    margin: 1rem 0rem;
 }
 
-.referencesHeader {
+.experienceHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
 }
 
-.referencesWrapper {
+.experienceWrapper {
+    width: 100%;
     padding: 0.5rem;
     margin: 0.3rem;
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .textField {
-    margin: 0.5rem 0.5rem !important
+    margin: 0.5rem !important
 }

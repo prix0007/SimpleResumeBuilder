@@ -1,14 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const resumeSlice = createSlice({
-  name: 'counter',
+  name: 'resume',
   initialState: {
     name: '',
     image: '',
     about: '',
     location: '',
-    experince: [],
-    skills: [],
+    experience: [],
+    skills: [{
+        name: 'Communication'
+    }],
     references: [],
     education: [],
     contact: {
@@ -40,31 +42,26 @@ export const resumeSlice = createSlice({
         state.location = action.payload
       },
     setExperience: (state, action) => {
-        state.experince = [
-            ...state.experince,
-            action.payload
-        ]
+        state.experience = action.payload
     },
     setEducation: (state, action) => {
-        state.education = [
-            ...state.education,
-            action.payload
-        ]
+        state.education = action.payload
     },
     setSkills: (state, action) => {
-        state.skills = [
-            ...state.skills,
-            action.payload
-        ]
+        state.skills = action.payload
     },
     setReferences: (state, action) => {
-        state.references = [
-            ...state.references,
-            action.payload
-        ]
+        state.references = action.payload
     },
     setContact: (state, action) => {
-        console.log(action.payload)
+       state.contact = {
+           ...action.payload
+       }
+    },
+    setSocialMedia: (state, action) => {
+        state.socialMedia = {
+            ...action.payload
+        }
     }
   },
 });
@@ -79,18 +76,18 @@ export const {
     setLocation,
     setExperience, 
     setSkills,
-
+    setSocialMedia
  } = resumeSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
-export const incrementAsync = amount => dispatch => {
-  setTimeout(() => {
-    dispatch(incrementByAmount(amount));
-  }, 1000);
-};
+// export const incrementAsync = amount => dispatch => {
+//   setTimeout(() => {
+//     dispatch(incrementByAmount(amount));
+//   }, 1000);
+// };
 
 // Reusme Functions
 export const setNameState = name => dispatch => {
@@ -125,6 +122,9 @@ export const setExperienceState = experience => dispatch => {
 
 export const setSkillsState = skills => dispatch => {
     dispatch(setSkills(skills));
+}
+export const setSocialMediaState = socialMedia => dispatch => {
+    dispatch(setSocialMedia(socialMedia));
 }
 
 

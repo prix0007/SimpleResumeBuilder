@@ -8,72 +8,66 @@ import AddIcon from '@material-ui/icons/AddCircleOutline';
 import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/DeleteOutlineRounded';
 
-import styles from './Education.module.css';
+import styles from './Experience.module.css';
+import {useDispatch, useSelector} from "react-redux";
+import {getResume, setExperienceState} from "../redux/resumeSlice";
 
-import { useSelector, useDispatch } from 'react-redux';
-import {
-    setEducationState,
-    getResume, setReferencesState,
-} from "../redux/resumeSlice";
-
-const Education = () => {
+const Experience = () => {
 
     const dispatch = useDispatch();
     const globalResume = useSelector(getResume);
 
-    const [educations , setEducations] = React.useState([{
-        name: 'Higher Education',
-        organization: 'Kendriya Vidyalaya, Raksha Vihar',
-        place: 'Kanpur'
+    const [experiences , setExperiences] = React.useState([{
+        name: 'React UI Developer',
+        place: 'Cypherock',
+        total: '6 Months'
     }]);
 
     React.useEffect(() => {
-        dispatch(setEducationState(educations));
-    }, [dispatch, educations]);
+        dispatch(setExperienceState(experiences));
+    }, [dispatch, experiences])
 
     const handleChange = (e, idx) => {
-
-        const newEducation = educations.map((education, id) => {
+        console.log('I am WOrking', e.target.name)
+        const newExperiences = experiences.map((experience, id) => {
             if(idx === id){
-                education = {
-                    ...education,
+                experience = {
+                    ...experience,
                     [e.target.name]: e.target.value
                 }
-            } 
-            return education;
+            }
+            return experience;
         });
-        setEducations([
-            ...newEducation
+        setExperiences([
+            ...newExperiences
         ])
-    }   
+    }
 
     const handleAdd = () => {
-        const noOfEducation = educations.length
-        const newEducation = {
+
+        const newExperience = {
             name: '',
-            organization: '',
-            place: ''
+            place: '',
+            total: ''
         }
-        setEducations([
-            ...educations,
-            newEducation
+        setExperiences([
+            ...experiences,
+            newExperience
         ])
     }
 
     const handleDelete = (idx) => {
-
-        const newEducations = educations.filter((education, id) => idx !== id)
-
-        setEducations([
-            ...newEducations
+        const newExperiences = experiences.filter((experience, id) => idx !== id)
+        setExperiences([
+            ...newExperiences
         ]);
     }
 
     return (
-        <Paper className={styles.educationRoot}>
-            <Grid container className={styles.educationHeader}>
+        <Paper className={styles.experienceRoot}>
+            <Grid container className={styles.experienceHeader}>
                 <Typography variant="h6" style={{marginLeft: '1rem'}}>
-                    Education
+                    Experience
                 </Typography>
                 <IconButton color="primary" onClick={handleAdd}>
                     <AddIcon />
@@ -83,35 +77,37 @@ const Education = () => {
                 <Grid item sm={1} />
                 <Grid item sm={10} style={{display: 'flex', flexWrap: 'wrap'}}>
                     {
-                        educations.map((education, idx) => {
+                        experiences.map((skill, idx) => {
                             return (
-                                <Paper key={`education-${idx}`} className={styles.educationWrapper}>
+                                <Paper key={`experience-${idx}`} className={styles.experienceWrapper}>
                                     <Grid container>
                                         <TextField
                                             name={'name'}
-                                            value={education.name}
-                                            placeholder="Enter name of Education"
-                                            onChange={(e) => handleChange(e, idx)}
-                                            className={styles.textField}
+                                            value={skill.name}
                                             fullWidth
-                                        />
-                                        <TextField
-                                            name={'organization'}
-                                            value={education.organization}
-                                            placeholder="Enter The Organization Name.."
+                                            placeholder="Enter Your Role Position"
                                             onChange={(e) => handleChange(e, idx)}
                                             className={styles.textField}
                                             fullWidth
                                         />
                                         <TextField
                                             name={'place'}
-                                            value={education.place}
-                                            placeholder="Enter the Place of Organization"
+                                            value={skill.place}
+                                            fullWidth
+                                            placeholder="Enter the Organization or Company Where you worked"
                                             onChange={(e) => handleChange(e, idx)}
                                             className={styles.textField}
                                             fullWidth
                                         />
-
+                                        <TextField
+                                            name={'total'}
+                                            value={skill.total}
+                                            fullWidth
+                                            placeholder="Enter Your total Experience There (e.g. 6 Months, 1 year)"
+                                            onChange={(e) => handleChange(e, idx)}
+                                            className={styles.textField}
+                                            fullWidth
+                                        />
                                     </Grid>
                                     <IconButton onClick={(e) => handleDelete(idx)}>
                                         <DeleteIcon color="error"/>
@@ -123,9 +119,9 @@ const Education = () => {
                 </Grid>
                 <Grid item sm={1} />
             </Grid>
-           
+
         </Paper>
     )
 }
 
-export default Education
+export default Experience

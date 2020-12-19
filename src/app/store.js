@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import resumeSlice from '../redux/resumeSlice';
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    resume: resumeSlice,
   },
 });
