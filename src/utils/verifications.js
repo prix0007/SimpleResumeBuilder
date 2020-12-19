@@ -5,7 +5,7 @@ export const isString = (word) => {
 }
 
 export const isValidString = (word) => {
-    var letters = /^[A-Za-z ]+$/;
+    var letters = /^[A-Za-z ,.]+$/;
     return word.match(letters);
 }
 export const isValidNumber = (num) => {

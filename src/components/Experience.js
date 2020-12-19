@@ -15,7 +15,7 @@ import {getResume, setExperienceState} from "../redux/resumeSlice";
 const Experience = () => {
 
     const dispatch = useDispatch();
-    const globalResume = useSelector(getResume);
+    // const globalResume = useSelector(getResume);
 
     const [experiences , setExperiences] = React.useState([{
         name: 'React UI Developer',
@@ -88,7 +88,6 @@ const Experience = () => {
                                             placeholder="Enter Your Role Position"
                                             onChange={(e) => handleChange(e, idx)}
                                             className={styles.textField}
-                                            fullWidth
                                         />
                                         <TextField
                                             name={'place'}
@@ -97,7 +96,6 @@ const Experience = () => {
                                             placeholder="Enter the Organization or Company Where you worked"
                                             onChange={(e) => handleChange(e, idx)}
                                             className={styles.textField}
-                                            fullWidth
                                         />
                                         <TextField
                                             name={'total'}
@@ -106,7 +104,6 @@ const Experience = () => {
                                             placeholder="Enter Your total Experience There (e.g. 6 Months, 1 year)"
                                             onChange={(e) => handleChange(e, idx)}
                                             className={styles.textField}
-                                            fullWidth
                                         />
                                     </Grid>
                                     <IconButton onClick={(e) => handleDelete(idx)}>

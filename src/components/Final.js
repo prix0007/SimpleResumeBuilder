@@ -47,7 +47,6 @@ const parseData = (data) => {
 
 const Final = () => {
 
-    const dispatch = useDispatch();
     const globalResume = useSelector(getResume);
 
     const handleDownload = () =>{
@@ -57,14 +56,14 @@ const Final = () => {
             var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
 
             if (navigator.msSaveBlob) { // IE 10+
-                navigator.msSaveBlob(blob, 'new.csv');
+                navigator.msSaveBlob(blob, 'Resume.csv');
             } else {
                 var link = document.createElement("a");
                 if (link.download !== undefined) { // feature detection
                     // Browsers that support HTML5 download attribute
                     var url = URL.createObjectURL(blob);
                     link.setAttribute("href", url);
-                    link.setAttribute("download", 'new.csv');
+                    link.setAttribute("download", 'Resume.csv');
                     link.style.visibility = 'hidden';
                     document.body.appendChild(link);
                     link.click();
