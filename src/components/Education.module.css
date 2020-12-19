@@ -1,0 +1,26 @@
+
+.educationRoot {
+    background: rgba(0,0,255, 0.04);
+    padding: 0.5rem;
+    margin: 1rem 0rem;
+}
+
+.educationHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.educationWrapper {
+    padding: 0.5rem;
+    margin: 0.3rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.textField {
+    margin: 0rem 0.5rem !important
+}

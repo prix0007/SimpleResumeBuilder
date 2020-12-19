@@ -1,0 +1,25 @@
+
+.skillsRoot {
+    background: rgba(0,0,255, 0.04);
+    padding: 0.5rem;
+}
+
+.skillsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.skillWrapper {
+    padding: 0.5rem;
+    margin: 0.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 400px;
+}
+
+.textField {
+    margin: 0rem 0.5rem !important
+}
